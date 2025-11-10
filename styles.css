@@ -10,8 +10,10 @@ body{
 a{color:inherit; text-decoration:none}
 .hidden{display:none}
 .muted{color:var(--muted)}
-.lead{color:var(--muted); max-width:60ch}
+.lead{color:var(--muted); max-width:65ch}
+.mt{margin-top:26px}
 
+/* nav */
 .nav{
   position:sticky; top:0; z-index:10;
   display:flex; align-items:center; justify-content:space-between;
@@ -20,20 +22,22 @@ a{color:inherit; text-decoration:none}
 }
 .brand{font-weight:800; letter-spacing:.5px}
 .brand span{color:var(--brand)}
-.nav nav{display:flex; gap:14px; flex-wrap:wrap}
+.nav nav{display:flex; gap:14px; flex-wrap:wrap; align-items:center}
 .nav a{padding:6px 10px; border-radius:8px}
 .nav a:hover{background:var(--panel); border:1px solid var(--line)}
+.pill.pro{border:1px solid #334; border-radius:999px; padding:6px 12px;}
 
+/* layout */
 main{max-width:1100px; margin:40px auto; padding:0 20px}
 h1,h2{margin:0 0 12px}
 .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); margin:20px 0}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .card{
   border:1px solid var(--line); background:linear-gradient(180deg, #171b26, #141825);
   border-radius:14px; padding:16px; transition:.2s transform;
 }
 .card:hover{transform:translateY(-2px)}
 .card.soft{background:#141824}
-
 .note{border:1px solid var(--line); border-radius:14px; padding:14px; background:#121520; margin:12px 0}
 pre.code{white-space:pre-wrap; background:#0d0f15; padding:12px; border-radius:10px; border:1px dashed #2a3048}
 
@@ -45,7 +49,6 @@ pre.code{white-space:pre-wrap; background:#0d0f15; padding:12px; border-radius:1
 .btn:hover{box-shadow:var(--ring)}
 .btn.accent{border-color:#334; background:linear-gradient(180deg, #1a1f33, #181c2f)}
 .btn.ghost{background:transparent}
-
 input[type="text"]{
   flex:1; min-width:220px; padding:11px 12px; border-radius:10px; border:1px solid var(--line);
   background:#0f1320; color:var(--ink);
@@ -56,3 +59,33 @@ input[type="text"]:focus{outline:none; box-shadow:var(--ring); border-color:#2d3
 .tasks li{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px dashed #2a2f44}
 .tasks input[type="checkbox"]{width:18px; height:18px}
 footer{max-width:1100px; margin:40px auto; padding:20px; color:var(--muted); border-top:1px solid var(--line)}
+
+/* hero */
+.hero{display:grid; gap:22px; grid-template-columns:1.2fr 1fr; align-items:center; margin:10px 0 24px}
+.hero-copy .ticks{list-style:disc; margin:10px 0 0 22px; color:var(--muted)}
+.panel{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#111421}
+.panel-top{height:30px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:6px; padding:0 10px}
+.dot{width:9px; height:9px; border-radius:50%; background:#2b2f45}
+.panel-body{padding:14px}
+.mini-cards{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+
+/* study */
+.focus-wrap{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.timer{border:1px solid var(--line); border-radius:14px; padding:16px; background:#121520}
+#timerText{font-size:44px; font-weight:800; margin-bottom:8px}
+.sounds .embed{border:1px solid var(--line); border-radius:12px; overflow:hidden}
+
+/* tabs */
+.tabs{display:flex; gap:8px; margin:8px 0 14px}
+.tab{border:1px solid var(--line); background:#121520; padding:8px 12px; border-radius:10px; cursor:pointer}
+.tab.active{background:#192036}
+
+/* flashcards */
+.card.flash{display:flex; flex-direction:column; gap:6px; align-items:flex-start}
+.flash-face{font-size:20px; background:#0d0f15; border:1px dashed #2a3048; border-radius:12px; padding:18px; width:100%}
+
+/* helpers on small screens */
+@media (max-width: 860px){
+  .hero{grid-template-columns:1fr}
+  .focus-wrap{grid-template-columns:1fr}
+}
