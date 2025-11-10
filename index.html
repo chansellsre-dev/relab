@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RE/LAB — Study • Prep • Mock • Checklist</title>
+  <meta name="description" content="RE/LAB — a sleek space for new real estate agents to study, prep, and practice." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">RE/<span>LAB</span></div>
+    <nav>
+      <a href="#home" data-route>Home</a>
+      <a href="#study" data-route>Study Room</a>
+      <a href="#mock" data-route>Mock Exam</a>
+      <a href="#prep" data-route>Prep Room</a>
+      <a href="#checklist" data-route>Checklist</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" class="view">
+      <h1>Welcome to RE/LAB</h1>
+      <p class="lead">Gender-neutral, bold, and simple—built for new agents. Start in the Study Room or jump into a quick Mock Exam.</p>
+      <div class="grid">
+        <a class="card" href="#study" data-route>
+          <h3>Study Room</h3>
+          <p>Bite-size notes & key terms.</p>
+        </a>
+        <a class="card" href="#mock" data-route>
+          <h3>Mock Exam</h3>
+          <p>Timed quizzes with instant feedback.</p>
+        </a>
+        <a class="card" href="#prep" data-route>
+          <h3>Prep Room</h3>
+          <p>Templates, scripts, and forms.</p>
+        </a>
+        <a class="card" href="#checklist" data-route>
+          <h3>Private Checklist</h3>
+          <p>Save tasks to your browser.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- STUDY -->
+    <section id="study" class="view hidden">
+      <h2>Study Room</h2>
+      <div class="note">
+        <h4>Agency Relationships (Quick Hits)</h4>
+        <ul>
+          <li><strong>Fiduciary duties:</strong> Obedience, Loyalty, Disclosure, Confidentiality, Accounting, Reasonable care.</li>
+          <li><strong>Types:</strong> Seller agency, Buyer agency, Dual agency (disclose & get consent), Designated agency.</li>
+          <li><strong>Listing agreements:</strong> Exclusive right-to-sell, Exclusive agency, Open listing, Net listing (avoid).</li>
+        </ul>
+      </div>
+      <div class="note">
+        <h4>Contracts</h4>
+        <ul>
+          <li><strong>Essential elements:</strong> Offer, Acceptance, Consideration, Legal purpose, Competent parties.</li>
+          <li><strong>Contingencies:</strong> Financing, Appraisal, Inspection, Home sale.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MOCK EXAM -->
+    <section id="mock" class="view hidden">
+      <h2>Mock Exam</h2>
+      <div id="quiz"></div>
+      <div class="row">
+        <button id="prevQ" class="btn ghost">Back</button>
+        <button id="nextQ" class="btn">Next</button>
+        <button id="submitQ" class="btn accent">Submit</button>
+      </div>
+      <p id="score" class="muted"></p>
+    </section>
+
+    <!-- PREP ROOM -->
+    <section id="prep" class="view hidden">
+      <h2>Prep Room</h2>
+      <div class="grid">
+        <div class="card soft">
+          <h4>Buyer Consult Mini-Script</h4>
+          <pre class="code">Hi! I’m Channon with RE/LAB. 
+What’s your ideal move-in date and monthly comfort for payments?
+Have you spoken with a lender yet?
+Let’s outline your must-haves vs. nice-to-haves.</pre>
+        </div>
+        <div class="card soft">
+          <h4>Showing Day Checklist</h4>
+          <ul>
+            <li>Confirm access (Supra/code), print MLS sheet</li>
+            <li>Arrive 10 min early, lights on, blinds open</li>
+            <li>Safety check: exits, uneven steps</li>
+            <li>Debrief in car; next steps & lender touch</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section id="checklist" class="view hidden">
+      <h2>Private Checklist</h2>
+      <form id="taskForm" class="row">
+        <input id="taskInput" type="text" placeholder="Add a task… (e.g., ‘Review GAR forms’)" />
+        <button class="btn" type="submit">Add</button>
+        <button id="clearTasks" class="btn ghost" type="button">Clear</button>
+      </form>
+      <ul id="taskList" class="tasks"></ul>
+      <p class="muted">Saved locally to your browser—private to you on this device.</p>
+    </section>
+  </main>
+
+  <footer>
+    <small>© <span id="year"></span> RE/LAB. Built for new agents.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
