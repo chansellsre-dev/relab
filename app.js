@@ -1,5 +1,5 @@
-// Simple hash-router
-const routes = ["home","study","mock","prep","checklist"];
+// ---------- Router ----------
+const routes = ["home","study","mock","prep","checklist","pro"];
 const views = Object.fromEntries(routes.map(id => [id, document.getElementById(id)]));
 
 function show(route){
@@ -18,26 +18,90 @@ document.querySelectorAll("[data-route]").forEach(a => a.addEventListener("click
 document.getElementById("year").textContent = new Date().getFullYear();
 handleRoute();
 
-// Mock quiz
+// ---------- Study Room: Pomodoro ----------
+let duration = 25 * 60;       // seconds
+let remaining = duration;
+let ticking = null;
+
+const timerText = document.getElementById("timerText");
+const affirm = document.getElementById("affirm");
+
+const AFFIRMS = [
+  "You’ve got this. One small block at a time.",
+  "Deep focus = fast progress.",
+  "Future you is proud you started.",
+  "Consistency beats intensity."
+];
+
+function fmt(sec){
+  const m = Math.floor(sec/60).toString().padStart(2,"0");
+  const s = Math.floor(sec%60).toString().padStart(2,"0");
+  return `${m}:${s}`;
+}
+function paintTimer(){ timerText.textContent = fmt(remaining); }
+
+function startTimer(){
+  if(ticking) return;
+  ticking = setInterval(()=>{
+    remaining = Math.max(0, remaining - 1);
+    paintTimer();
+    if(remaining === 0){ clearInterval(ticking); ticking = null; alert("Focus block complete! Take a short break."); }
+  }, 1000);
+}
+function pauseTimer(){ if(ticking){ clearInterval(ticking); ticking = null; } }
+function resetTimer(){ pauseTimer(); remaining = duration; paintTimer(); }
+
+document.querySelectorAll("[data-timer]").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    duration = Number(b.dataset.timer) * 60;
+    remaining = duration; paintTimer();
+  });
+});
+document.getElementById("startTimer").onclick = startTimer;
+document.getElementById("pauseTimer").onclick = pauseTimer;
+document.getElementById("resetTimer").onclick = resetTimer;
+setInterval(()=>{ affirm.textContent = AFFIRMS[Math.floor(Math.random()*AFFIRMS.length)]; }, 15000);
+
+// ---------- Mock Exam: Tabs ----------
+const tabBtns = document.querySelectorAll(".tab");
+const tabViews = { flash: document.getElementById("flash"), quiz: document.getElementById("quizTab") };
+tabBtns.forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    tabBtns.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const k = btn.dataset.tab;
+    Object.keys(tabViews).forEach(x=>tabViews[x].classList.toggle("hidden", x!==k));
+  });
+});
+
+// ---------- Flashcards ----------
+const CARDS = [
+  {term:"Fiduciary Duties", def:"Obedience, Loyalty, Disclosure, Confidentiality, Accounting, Reasonable care."},
+  {term:"Exclusive Right-to-Sell", def:"Listing where the broker is paid regardless of who procures the buyer."},
+  {term:"Consideration", def:"Something of value exchanged; required for a valid contract."},
+  {term:"Dual Agency", def:"Agent represents both buyer and seller; requires disclosure & consent."},
+  {term:"Fixtures", def:"Personal property that has become real property by attachment/adaptation/intent."}
+];
+let cIdx = 0, flipped = false;
+const flashTerm = document.getElementById("flashTerm");
+const flashDef  = document.getElementById("flashDef");
+function paintCard(){
+  flashTerm.textContent = CARDS[cIdx].term;
+  flashDef.textContent  = CARDS[cIdx].def;
+  flashTerm.classList.toggle("hidden", flipped);
+  flashDef.classList.toggle("hidden", !flipped);
+}
+document.getElementById("flipCard").onclick = ()=>{ flipped = !flipped; paintCard(); };
+document.getElementById("prevCard").onclick = ()=>{ cIdx = (cIdx-1+CARDS.length)%CARDS.length; flipped=false; paintCard(); };
+document.getElementById("nextCard").onclick = ()=>{ cIdx = (cIdx+1)%CARDS.length; flipped=false; paintCard(); };
+paintCard();
+
+// ---------- Mock Quiz (upgraded) ----------
 const QUESTIONS = [
-  {
-    q: "Which duty requires keeping a client’s financial info private?",
-    opts: ["Disclosure","Confidentiality","Accounting","Obedience"],
-    answer: 1,
-    why: "Confidentiality protects the client’s private information."
-  },
-  {
-    q: "Which listing gives the broker the most protection for commission?",
-    opts: ["Open listing","Net listing","Exclusive agency","Exclusive right-to-sell"],
-    answer: 3,
-    why: "Exclusive right-to-sell pays the listing broker regardless of who procures the buyer."
-  },
-  {
-    q: "A contract must include which element to be valid?",
-    opts: ["Earnest money","Consideration","Witnesses","Notary"],
-    answer: 1,
-    why: "Consideration is required; the others are not necessarily required."
-  }
+  { q: "Which duty protects a client’s private financial info?", opts:["Disclosure","Confidentiality","Accounting","Obedience"], answer:1, why:"Confidentiality means keeping the client’s private information private." },
+  { q: "Which listing gives strongest commission protection to the broker?", opts:["Open","Net","Exclusive Agency","Exclusive Right-to-Sell"], answer:3, why:"Exclusive right-to-sell pays even if the seller finds the buyer." },
+  { q: "A valid contract must include:", opts:["Earnest money","Consideration","Witnesses","Notary"], answer:1, why:"Consideration is required; others may not be." },
+  { q: "Fixtures are typically transferred:", opts:["As personal property","With the real property","Only by separate bill of sale","Never"], answer:1, why:"Fixtures run with the real estate unless excluded." }
 ];
 let idx = 0, selections = new Array(QUESTIONS.length).fill(null);
 
@@ -71,14 +135,13 @@ submitBtn.onclick = ()=>{
   QUESTIONS.forEach((q,i)=>{ if(selections[i]===q.answer) correct++; });
   const pct = Math.round(100*correct/QUESTIONS.length);
   scoreP.textContent = `Score: ${correct}/${QUESTIONS.length} (${pct}%).`;
-  // show rationales
   quizDiv.innerHTML += `<div class="note"><h4>Why:</h4><ol>${
     QUESTIONS.map(q=>`<li>${q.why}</li>`).join("")
   }</ol></div>`;
 };
 renderQ();
 
-// Checklist (localStorage)
+// ---------- Checklist (localStorage) ----------
 const TASK_KEY = "relab_tasks_v1";
 const taskForm = document.getElementById("taskForm");
 const taskInput = document.getElementById("taskInput");
@@ -95,18 +158,19 @@ function paintTasks(){
       <span ${t.done?'style="text-decoration:line-through; color:#768"':''}>${t.text}</span>
     </li>`).join("");
 }
-taskForm.addEventListener("submit", e=>{
+taskForm?.addEventListener("submit", e=>{
   e.preventDefault();
   const text = taskInput.value.trim();
   if(!text) return;
   const tasks = loadTasks(); tasks.push({text, done:false}); saveTasks(tasks);
   taskInput.value=""; paintTasks();
 });
-taskList.addEventListener("change", e=>{
+taskList?.addEventListener("change", e=>{
   if(e.target.type==="checkbox"){
     const i = Number(e.target.dataset.i);
     const tasks = loadTasks(); tasks[i].done = e.target.checked; saveTasks(tasks); paintTasks();
   }
 });
-clearBtn.onclick = ()=>{ localStorage.removeItem(TASK_KEY); paintTasks(); }
+clearBtn?.addEventListener("click", ()=>{ localStorage.removeItem(TASK_KEY); paintTasks(); });
 paintTasks();
+   
