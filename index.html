@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>RE/LAB — Study • Prep • Mock • Checklist</title>
-  <meta name="description" content="RE/LAB — a sleek space for new real estate agents to study, prep, and practice." />
+  <meta name="description" content="RE/LAB — an immersive workspace for new real estate agents to study, prep, and practice exams." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,64 +16,129 @@
       <a href="#mock" data-route>Mock Exam</a>
       <a href="#prep" data-route>Prep Room</a>
       <a href="#checklist" data-route>Checklist</a>
+      <a class="pill pro" href="#pro" data-route>RE/LAB+</a>
     </nav>
   </header>
 
   <main>
     <!-- HOME -->
     <section id="home" class="view">
-      <h1>Welcome to RE/LAB</h1>
-      <p class="lead">Gender-neutral, bold, and simple—built for new agents. Start in the Study Room or jump into a quick Mock Exam.</p>
+      <div class="hero">
+        <div class="hero-copy">
+          <h1>Welcome to RE/LAB</h1>
+          <p class="lead">An immersive, distraction-light workspace for new agents. Focus with Pomodoro, drill flashcards, take mock exams, and use ready-to-go scripts—everything in one tab.</p>
+          <div class="row">
+            <a class="btn accent" href="#study" data-route>Start studying</a>
+            <a class="btn ghost" href="#mock" data-route>Try a mock test</a>
+          </div>
+          <ul class="ticks">
+            <li>Focus Mode (timer + study sounds)</li>
+            <li>Flashcards & practice exams</li>
+            <li>Agent scripts & checklists</li>
+          </ul>
+        </div>
+        <div class="hero-panel">
+          <div class="panel">
+            <div class="panel-top">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <div class="panel-body">
+              <div class="mini-cards">
+                <a class="card" href="#study" data-route><h4>Study Room</h4><p>Focus timer + sounds</p></a>
+                <a class="card" href="#mock" data-route><h4>Mock Exam</h4><p>Timed quizzes</p></a>
+                <a class="card" href="#prep" data-route><h4>Prep Room</h4><p>Scripts & templates</p></a>
+                <a class="card" href="#checklist" data-route><h4>Checklist</h4><p>Daily flow</p></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="muted mt">What you get</h3>
       <div class="grid">
-        <a class="card" href="#study" data-route>
-          <h3>Study Room</h3>
-          <p>Bite-size notes & key terms.</p>
-        </a>
-        <a class="card" href="#mock" data-route>
-          <h3>Mock Exam</h3>
-          <p>Timed quizzes with instant feedback.</p>
-        </a>
-        <a class="card" href="#prep" data-route>
-          <h3>Prep Room</h3>
-          <p>Templates, scripts, and forms.</p>
-        </a>
-        <a class="card" href="#checklist" data-route>
-          <h3>Private Checklist</h3>
-          <p>Save tasks to your browser.</p>
-        </a>
+        <div class="card soft">
+          <h4>🧠 Study Room</h4>
+          <p>Pomodoro focus cycles (25/5), gentle study sounds, rotating affirmations.</p>
+        </div>
+        <div class="card soft">
+          <h4>🧩 Flashcards & Exams</h4>
+          <p>Drill key terms, then take timed quizzes with instant rationales.</p>
+        </div>
+        <div class="card soft">
+          <h4>💼 Agent Toolkit</h4>
+          <p>Generalized scripts and templates you can adapt for any market.</p>
+        </div>
+        <div class="card soft">
+          <h4>✅ Checklist</h4>
+          <p>Private on-device tasks to keep momentum without another app.</p>
+        </div>
       </div>
     </section>
 
     <!-- STUDY -->
     <section id="study" class="view hidden">
       <h2>Study Room</h2>
-      <div class="note">
-        <h4>Agency Relationships (Quick Hits)</h4>
-        <ul>
-          <li><strong>Fiduciary duties:</strong> Obedience, Loyalty, Disclosure, Confidentiality, Accounting, Reasonable care.</li>
-          <li><strong>Types:</strong> Seller agency, Buyer agency, Dual agency (disclose & get consent), Designated agency.</li>
-          <li><strong>Listing agreements:</strong> Exclusive right-to-sell, Exclusive agency, Open listing, Net listing (avoid).</li>
-        </ul>
-      </div>
-      <div class="note">
-        <h4>Contracts</h4>
-        <ul>
-          <li><strong>Essential elements:</strong> Offer, Acceptance, Consideration, Legal purpose, Competent parties.</li>
-          <li><strong>Contingencies:</strong> Financing, Appraisal, Inspection, Home sale.</li>
-        </ul>
+      <p class="muted">Set a focus cycle, pick a sound, and lock in.</p>
+
+      <div class="focus-wrap">
+        <div class="timer">
+          <div id="timerText">25:00</div>
+          <div class="row">
+            <button class="btn" data-timer="25">Focus 25</button>
+            <button class="btn" data-timer="50">Focus 50</button>
+            <button class="btn ghost" id="startTimer">Start</button>
+            <button class="btn ghost" id="pauseTimer">Pause</button>
+            <button class="btn ghost" id="resetTimer">Reset</button>
+          </div>
+          <p id="affirm" class="muted">You’ve got this. One small block at a time.</p>
+        </div>
+
+        <div class="sounds">
+          <h4>Study sounds</h4>
+          <div class="grid two">
+            <div class="embed">
+              <iframe width="100%" height="200" src="https://www.youtube.com/embed/jfKfPfyJRdk" title="lofi hip hop radio" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+            </div>
+            <div class="embed">
+              <iframe width="100%" height="200" src="https://www.youtube.com/embed/6H5k_M6C5Hk" title="coffee shop ambience" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- MOCK EXAM -->
     <section id="mock" class="view hidden">
-      <h2>Mock Exam</h2>
-      <div id="quiz"></div>
-      <div class="row">
-        <button id="prevQ" class="btn ghost">Back</button>
-        <button id="nextQ" class="btn">Next</button>
-        <button id="submitQ" class="btn accent">Submit</button>
+      <h2>Exam Center</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="flash">Flashcards</button>
+        <button class="tab" data-tab="quiz">Mock Test</button>
       </div>
-      <p id="score" class="muted"></p>
+
+      <!-- FLASHCARDS -->
+      <div id="flash" class="tabview">
+        <div class="card flash">
+          <p class="muted">Tap to reveal</p>
+          <div id="flashTerm" class="flash-face"></div>
+          <div id="flashDef" class="flash-face hidden"></div>
+        </div>
+        <div class="row">
+          <button class="btn" id="prevCard">Prev</button>
+          <button class="btn accent" id="flipCard">Flip</button>
+          <button class="btn" id="nextCard">Next</button>
+        </div>
+      </div>
+
+      <!-- QUIZ -->
+      <div id="quizTab" class="tabview hidden">
+        <div id="quiz"></div>
+        <div class="row">
+          <button id="prevQ" class="btn ghost">Back</button>
+          <button id="nextQ" class="btn">Next</button>
+          <button id="submitQ" class="btn accent">Submit</button>
+        </div>
+        <p id="score" class="muted"></p>
+      </div>
     </section>
 
     <!-- PREP ROOM -->
@@ -81,34 +146,49 @@
       <h2>Prep Room</h2>
       <div class="grid">
         <div class="card soft">
-          <h4>Buyer Consult Mini-Script</h4>
-          <pre class="code">Hi! I’m Channon with RE/LAB. 
+          <h4>Buyer Consult — Mini Script</h4>
+<pre class="code">Thanks for meeting with me. 
 What’s your ideal move-in date and monthly comfort for payments?
-Have you spoken with a lender yet?
-Let’s outline your must-haves vs. nice-to-haves.</pre>
+Have you spoken with a lender yet, or would you like intros?
+Let’s list your must-haves vs. nice-to-haves to guide our search.</pre>
         </div>
         <div class="card soft">
-          <h4>Showing Day Checklist</h4>
+          <h4>Showing Day — Quick Checklist</h4>
           <ul>
-            <li>Confirm access (Supra/code), print MLS sheet</li>
-            <li>Arrive 10 min early, lights on, blinds open</li>
-            <li>Safety check: exits, uneven steps</li>
-            <li>Debrief in car; next steps & lender touch</li>
+            <li>Confirm access (Supra/code); print or save MLS sheet</li>
+            <li>Arrive early, lights on, blinds open</li>
+            <li>Safety glance: uneven steps, loose rails, pets</li>
+            <li>Debrief outside; set next step + lender touch</li>
           </ul>
+        </div>
+        <div class="card soft">
+          <h4>Follow-Up — Text Template</h4>
+<pre class="code">Great touring today! Here are the top 3 we liked and why. 
+I’ll send comps + next steps shortly. Any questions I can answer now?</pre>
         </div>
       </div>
     </section>
 
     <!-- CHECKLIST -->
     <section id="checklist" class="view hidden">
-      <h2>Private Checklist</h2>
+      <h2>Agent Daily Flow</h2>
       <form id="taskForm" class="row">
         <input id="taskInput" type="text" placeholder="Add a task… (e.g., ‘Review GAR forms’)" />
         <button class="btn" type="submit">Add</button>
         <button id="clearTasks" class="btn ghost" type="button">Clear</button>
       </form>
       <ul id="taskList" class="tasks"></ul>
-      <p class="muted">Saved locally to your browser—private to you on this device.</p>
+      <p class="muted">Saved locally to your browser—private on this device.</p>
+    </section>
+
+    <!-- PRO PLACEHOLDER -->
+    <section id="pro" class="view hidden">
+      <h2>RE/LAB+</h2>
+      <p class="lead">Coming soon: full multi-state exams, progress tracking, downloads, and member scenes for the Study Room.</p>
+      <p class="muted">When you’re ready to charge, we’ll add Stripe Checkout here and flag premium features.</p>
+      <div class="row">
+        <a class="btn accent" href="#home" data-route>Back home</a>
+      </div>
     </section>
   </main>
 
@@ -118,4 +198,4 @@ Let’s outline your must-haves vs. nice-to-haves.</pre>
 
   <script src="app.js"></script>
 </body>
-</html>
+</html> 
